@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build:storybook": "storybook build"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf coverage && rm -rf storybook-static",
+    "build:storybook": "storybook build",
+    "test": "./scripts/test.sh",
+    "test-storybook": "./node_modules/.bin/test-storybook"
   },
   "dependencies": {
     "@storybook/addon-styling-webpack": "^1.0.1",
@@ -16,17 +19,23 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.3",
+    "@playwright/test": "^1.49.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@storybook/addon-coverage": "^1.0.5",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
-    "@storybook/addon-onboarding": "^8.4.7",
     "@storybook/addon-webpack5-compiler-swc": "^2.0.0",
     "@storybook/blocks": "^8.4.7",
     "@storybook/react": "^8.4.7",
     "@storybook/react-webpack5": "^8.4.7",
     "@storybook/test": "^8.4.7",
+    "@storybook/test-runner": "^0.21.0",
+    "@types/node": "^22.10.5",
+    "concurrently": "^9.1.2",
+    "http-server": "14.1.1",
     "prop-types": "^15.8.1",
-    "storybook": "^8.4.7"
+    "storybook": "^8.4.7",
+    "wait-on": "^8.0.1"
   }
 }
