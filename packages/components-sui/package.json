@@ -1,0 +1,42 @@
+{
+  "name": "@nrp-cz/components-sui",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "dist/**"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint . --max-warnings 0 src/",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@repo/core": "workspace:*",
+    "semantic-ui-react": "^2.1.1"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.2",
+    "@types/react": "^16.13.0",
+    "@types/react-dom": "^16.9.9",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@storybook/test": "^8.4.7",
+    "@storybook/react": "^8.4.7"
+  },
+  "peerDependencies": {
+    "react": "^16.13.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1",
+    "react-dom": "^16.13.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1"
+  }
+}
