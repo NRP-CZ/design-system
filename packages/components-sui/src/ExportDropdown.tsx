@@ -5,15 +5,13 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import { Grid, Dropdown, Button } from "semantic-ui-react";
-import { i18next } from "@translations/oarepo_ui/i18next";
 
-export function ExportDropdown({
-  recordExportInfo: { formatOptions, exportBaseUrl },
+export function ExportDropdown ({
+  recordExportInfo: { formatOptions, exportBaseUrl }, t
 }) {
-  const [selectedExportFormat, setSelectedExportFormat] = useState(
+  const [selectedExportFormat, setSelectedExportFormat] = React.useState(
     formatOptions[0].value
   );
   return (
@@ -44,16 +42,3 @@ export function ExportDropdown({
     </Grid>
   );
 }
-
-ExportDropdown.propTypes = {
-  recordExportInfo: PropTypes.shape({
-    formatOptions: PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    exportBaseUrl: PropTypes.string.isRequired,
-  }).isRequired,
-};

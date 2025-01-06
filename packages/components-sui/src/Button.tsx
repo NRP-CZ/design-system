@@ -1,5 +1,5 @@
 import React from 'react';
-import { useButton } from '@repo/core';
+import { TestProps, useButton } from '@repo/core';
 import { Button as SemanticButton } from 'semantic-ui-react'
 import { translated, TranslatedProps } from '@nrp-cz/internationalization';
 
@@ -7,11 +7,8 @@ export interface ButtonProps {
     label: string;
     onClick?: () => void;
     disabled?: boolean;
-    testId?: string;
 }
-export const Button: React.FC<ButtonProps & TranslatedProps> = ({ label, onClick, disabled, testId, t }) => {
-    console.log({ t })
-
+export const Button: React.FC<ButtonProps & TestProps & TranslatedProps> = ({ label, onClick, disabled, testId, t = x => x }) => {
     const { handleClick, isPressed } = useButton({ onClick, disabled });
     return (
         <SemanticButton
@@ -26,5 +23,4 @@ export const Button: React.FC<ButtonProps & TranslatedProps> = ({ label, onClick
     );
 };
 
-
-export default translated()(Button)
+export default translated(Button)
