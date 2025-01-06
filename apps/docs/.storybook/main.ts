@@ -16,14 +16,13 @@ const config = {
     "../../../packages/components-sui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
   addons: [
-    getAbsolutePath("@storybook/addon-webpack5-compiler-swc"),
     getAbsolutePath("@storybook/addon-essentials"),
     getAbsolutePath("@chromatic-com/storybook"),
     getAbsolutePath("@storybook/addon-interactions"),
     getAbsolutePath("@storybook/addon-coverage"),
   ],
   framework: {
-    name: getAbsolutePath("@storybook/react-webpack5"),
+    name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
   build: {

@@ -5,6 +5,7 @@
     }
   ],
   "conventionalCommits.scopes": [
-    "tests"
+    "tests",
+    "i18n"
   ]
 }
