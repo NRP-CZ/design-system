@@ -26,6 +26,11 @@
       ],
       "dependsOn": []
     },
+    "test:watch": {
+      "cache": false,
+      "persistent": true,
+      "interactive": true
+    },
     "lint": {
       "dependsOn": [
         "^build"

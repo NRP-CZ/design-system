@@ -1,4 +1,4 @@
-export { useButton } from "./use-button";
+export { useButton } from "./hooks/use-button";
 
-export type { UseButtonProps } from "./use-button";
+export type { UseButtonProps } from "./hooks/use-button";
 export type * from "./types";

@@ -18,6 +18,7 @@ const config = {
   addons: [
     getAbsolutePath("@storybook/addon-essentials"),
     getAbsolutePath("@chromatic-com/storybook"),
+    getAbsolutePath("storybook-react-i18next"),
     getAbsolutePath("@storybook/addon-interactions"),
     getAbsolutePath("@storybook/addon-coverage"),
   ],

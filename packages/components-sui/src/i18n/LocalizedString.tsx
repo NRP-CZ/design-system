@@ -1,17 +1,21 @@
 import * as React from 'react'
-// import { i18next } from '@translations/oarepo_ui/i18next'
+import { ComponentProps, useButton } from '@repo/core';
+import { translated, TranslatedProps } from '@nrp-cz/internationalization';
 
 
-export interface LocalizedStringProps {
+export type LocalizedStringProps = ComponentProps<{
     value: object;
-    testId?: string;
-}
+}> & TranslatedProps
+
+function LocalizedStringFn (props: LocalizedStringProps): JSX.Element {
+    const { as, onClick, disabled, testId, label, t, primary } = props
+    const { handleClick, isPressed } = useButton({ onClick, disabled });
+    
+    return <React.Fragment as={as}>{localizedValue}</React.Fragment => ;
+};
+
+
 
 export const LocalizedString: React.FC<LocalizedStringProps> = ({ value, testId }) => {
-    const localizedValue =
-        value[i18next.language] ||
-        value[i18next.options.fallbackLng] ||
-        Object.values(value).shift();
 
-    return <>{localizedValue}</>;
 };

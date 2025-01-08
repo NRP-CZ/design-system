@@ -12,12 +12,12 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@nrp-cz/internationalization": "workspace:*",
     "@types/react": "^16.13.0",
     "@types/react-dom": "^16.9.9",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "semantic-ui-css": "^2.4.1",
-    "@nrp-cz/internationalization": "workspace:*"
+    "semantic-ui-css": "^2.4.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.3",
@@ -38,6 +38,7 @@
     "http-server": "14.1.1",
     "prop-types": "^15.8.1",
     "storybook": "^8.4.7",
+    "storybook-react-i18next": "^3.1.8",
     "wait-on": "^8.0.1"
   }
 }
