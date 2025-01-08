@@ -1,21 +1,24 @@
-import * as React from 'react'
-import { ComponentProps, useButton } from '@repo/core';
-import { translated, TranslatedProps } from '@nrp-cz/internationalization';
+import { ComponentProps, useLocalizedValue } from '@repo/core';
+import { MultilingualValue } from '@nrp-cz/internationalization';
 
+/**
+ * A simple element that tries to display the string-based value in user's current locale.
+ *
+ * This component utilizes the `useLocalizedValue` hook to resolve the appropriate string
+ * from a `MultilingualValue` object for the current i18n language. It also supports fallback
+ * languages and gracefully handles missing values.
+ *
+ */
+export type LocalizedStringProps<T extends React.ElementType = 'span'> = ComponentProps<{
+    as?: T;
+    value: MultilingualValue;
+}>
 
-export type LocalizedStringProps = ComponentProps<{
-    value: object;
-}> & TranslatedProps
+export function LocalizedString<T extends React.ElementType = 'span'> (props: LocalizedStringProps<T>): JSX.Element {
+    const { as, value } = props
+    const localizedValue = useLocalizedValue(value)
 
-function LocalizedStringFn (props: LocalizedStringProps): JSX.Element {
-    const { as, onClick, disabled, testId, label, t, primary } = props
-    const { handleClick, isPressed } = useButton({ onClick, disabled });
-    
-    return <React.Fragment as={as}>{localizedValue}</React.Fragment => ;
-};
+    const Component = as || 'span';
 
-
-
-export const LocalizedString: React.FC<LocalizedStringProps> = ({ value, testId }) => {
-
+    return <Component>{localizedValue}</Component>;
 };

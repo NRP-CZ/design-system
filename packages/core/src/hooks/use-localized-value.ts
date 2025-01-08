@@ -1,9 +1,7 @@
 import { useTranslation, fallbackLng } from "@nrp-cz/internationalization";
 import type { MultilingualValue } from "@nrp-cz/internationalization";
 
-export interface UseLocalizedValueProps {
-  value: MultilingualValue;
-}
+export type UseLocalizedValueProps = MultilingualValue;
 
 /**
  * Returns a localized string from a `MultilingualValue` object corresponding to the current i18n language.
@@ -11,9 +9,9 @@ export interface UseLocalizedValueProps {
  * - If still no match, returns the first entry found
  * - Finally if it can't find anything, it returns undefined
  */
-export function useLocalizedValue({
-  value,
-}: UseLocalizedValueProps): string | undefined {
+export function useLocalizedValue(
+  value: UseLocalizedValueProps
+): string | undefined {
   const { i18n } = useTranslation();
 
   const currentLanguageValue = value[i18n.language];
@@ -30,7 +28,6 @@ export function useLocalizedValue({
         return value[matchingCode];
       }
     }
-    return false;
   }
 
   return (

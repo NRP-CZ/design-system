@@ -3,7 +3,6 @@ import { ComponentProps, useButton } from '@repo/core';
 import { Button as SemanticButton, StrictButtonProps } from 'semantic-ui-react'
 import { translated, TranslatedProps } from '@nrp-cz/internationalization';
 
-
 export type ButtonProps = ComponentProps<{
     label: string;
     onClick?: () => void;

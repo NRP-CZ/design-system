@@ -24,7 +24,7 @@ describe("useLocalizedValue", () => {
       cs: "Ahoj",
     };
 
-    const { result } = renderHook(() => useLocalizedValue({ value }));
+    const { result } = renderHook(() => useLocalizedValue(value));
 
     expect(result.current).toBe("Hello");
   });
@@ -39,7 +39,7 @@ describe("useLocalizedValue", () => {
       cs: "Ahoj",
     };
 
-    const { result } = renderHook(() => useLocalizedValue({ value }));
+    const { result } = renderHook(() => useLocalizedValue(value));
 
     expect(result.current).toBe("Hello");
   });
@@ -53,7 +53,7 @@ describe("useLocalizedValue", () => {
       cs: "Ahoj",
     };
 
-    const { result } = renderHook(() => useLocalizedValue({ value }));
+    const { result } = renderHook(() => useLocalizedValue(value));
 
     expect(result.current).toBe("Ahoj");
   });
@@ -65,9 +65,24 @@ describe("useLocalizedValue", () => {
 
     const value = {};
 
-    const { result } = renderHook(() => useLocalizedValue({ value }));
+    const { result } = renderHook(() => useLocalizedValue(value));
 
     expect(result.current).toBeUndefined();
+  });
+
+  it("handles empty options config", () => {
+    mockUseTranslation.mockReturnValue({
+      i18n: { language: "fr" },
+    });
+
+    const value = {
+      en: "Hello",
+      cs: "Ahoj",
+    };
+
+    const { result } = renderHook(() => useLocalizedValue(value));
+
+    expect(result.current).toBe("Hello");
   });
 
   it("handles fallbackLng as an array", () => {
@@ -80,7 +95,7 @@ describe("useLocalizedValue", () => {
       cs: "Ahoj",
     };
 
-    const { result } = renderHook(() => useLocalizedValue({ value }));
+    const { result } = renderHook(() => useLocalizedValue(value));
 
     expect(result.current).toBe("Ahoj");
   });
@@ -95,7 +110,7 @@ describe("useLocalizedValue", () => {
       cs: "Ahoj",
     };
 
-    const { result } = renderHook(() => useLocalizedValue({ value }));
+    const { result } = renderHook(() => useLocalizedValue(value));
 
     expect(result.current).toBe("Hello");
   });
@@ -107,8 +122,8 @@ describe("useLocalizedValue", () => {
 
     const value = {};
 
-    const { result } = renderHook(() => useLocalizedValue({ value }));
+    const { result } = renderHook(() => useLocalizedValue(value));
 
-    expect(result.current).toBeFalsy(); // Should return undefined as fallbackLng is invalid
+    expect(result.current).toBeFalsy();
   });
 });
