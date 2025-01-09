@@ -21,7 +21,8 @@
     }
   },
   "dependencies": {
-    "@nrp-cz/internationalization": "workspace:*"
+    "@nrp-cz/internationalization": "workspace:*",
+    "axios": "^0.21.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
@@ -35,7 +36,8 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "ts-jest": "^29.2.5",
-    "tsup": "^8.0.2"
+    "tsup": "^8.0.2",
+    "@tanstack/react-query": "^4.32.0"
   },
   "peerDependencies": {
     "@repo/eslint-config": "workspace:*",

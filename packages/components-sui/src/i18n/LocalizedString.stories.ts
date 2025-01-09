@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
 import { LocalizedString } from "./LocalizedString";
-import { useTranslation } from "@nrp-cz/internationalization";
 
 /**
  * A simple element that tries to display the string-based value in user's current locale.

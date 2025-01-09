@@ -1,7 +1,7 @@
 import React, { ElementType } from 'react';
 import { ComponentProps, useButton } from '@repo/core';
 import { Button as SemanticButton, StrictButtonProps } from 'semantic-ui-react'
-import { translated, TranslatedProps } from '@nrp-cz/internationalization';
+import { defaultT, translated, TranslatedProps } from '@nrp-cz/internationalization';
 
 export type ButtonProps = ComponentProps<{
     label: string;
@@ -9,8 +9,8 @@ export type ButtonProps = ComponentProps<{
     disabled?: boolean;
 }> & TranslatedProps & StrictButtonProps
 
-function ButtonFn (props: ButtonProps): JSX.Element {
-    const { as, onClick, disabled, testId, label, t, primary } = props
+export function ButtonFn (props: ButtonProps): JSX.Element {
+    const { as, onClick, disabled, testId, label, t = defaultT, primary } = props
     const { handleClick, isPressed } = useButton({ onClick, disabled });
 
     return (
