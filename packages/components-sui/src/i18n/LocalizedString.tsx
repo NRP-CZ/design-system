@@ -1,5 +1,6 @@
-import { ComponentProps, useLocalizedValue } from '@repo/core';
-import { MultilingualValue } from '@nrp-cz/internationalization';
+import * as React from 'react';
+import { type ComponentProps, useLocalizedValue } from '@repo/core';
+import type { MultilingualValue } from '@nrp-cz/internationalization';
 
 
 export type LocalizedStringProps<T extends React.ElementType = 'span'> = ComponentProps<{

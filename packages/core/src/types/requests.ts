@@ -4,7 +4,7 @@
 
 export interface RequestTimelineResponse {
   hits: {
-    hits: RequestEventMetadata[];
+    hits: RequestEventResponseMetadata[];
     total: number;
   };
   sortBy: string;
@@ -45,9 +45,19 @@ export interface RequestRecordMetadata {
 }
 
 /**
- * Metadata of event happend on request record.
+ * Metadata for creating an event on a request.
  */
 export interface RequestEventMetadata {
+  payload: {
+    content: string;
+    format: "html";
+  };
+}
+
+/**
+ * Metadata response of a single event happend on request record.
+ */
+export interface RequestEventResponseMetadata extends RequestEventMetadata {
   id: string;
   created: string;
   updated: string;
@@ -62,10 +72,6 @@ export interface RequestEventMetadata {
   permissions: {
     can_update_comment: boolean;
     can_delete_comment: boolean;
-  };
-  payload: {
-    content: string;
-    format: "html";
   };
   expanded: {
     created_by: {

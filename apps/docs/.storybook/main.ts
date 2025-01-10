@@ -18,7 +18,6 @@ const config = {
     "../../../packages/components-sui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
   addons: [
-    getAbsolutePath("@storybook/addon-docs"),
     getAbsolutePath("@storybook/addon-essentials"),
     getAbsolutePath("@chromatic-com/storybook"),
     getAbsolutePath("@storybook/addon-interactions"),
@@ -35,7 +34,7 @@ const config = {
     // reactDocgen: "react-docgen",
     skipBabel: true,
     check: false,
-    reactDocgen: "react-docgen-typescript",
+    reactDocgen: "react-docgen",
     reactDocgenTypescriptOptions: {
       // Speeds up Storybook build time
       compilerOptions: {

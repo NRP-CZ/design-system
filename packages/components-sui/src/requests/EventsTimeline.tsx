@@ -1,7 +1,4 @@
-import * as React from "react";
 import { Message, Feed, Dimmer, Loader, Pagination } from "semantic-ui-react";
-import { apiClient } from "@repo/core";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { ComponentProps, RequestEventMetadata, RequestRecordMetadata, RequestTimelineResponse } from "@repo/core";
 import { defaultT, translated, type TranslatedProps } from "@nrp-cz/internationalization";
@@ -38,53 +35,54 @@ export type EventsTimelineProps = ComponentProps<{
  */
 export function EventsTimelineFn ({ request, timelinePageSize = 25, t = defaultT }: EventsTimelineProps): JSX.Element {
 
-    const events: RequestEventMetadata[] | undefined = data?.hits.hits;
-    const totalPages = Math.ceil(data?.hits?.total / timelinePageSize);
-    return (
-        <Dimmer.Dimmable blurring dimmed={isLoading}>
-            <Dimmer active={isLoading} inverted>
-                <Loader indeterminate size="big">
-                    {t("Loading timeline...")}
-                </Loader>
-            </Dimmer>
-            <div className="rel-mb-5">
-                <CommentSubmitForm commentSubmitMutation={commentSubmitMutation} />
-            </div>
-            {error && (
-                <Message negative>
-                    <Message.Header>
-                        {i18next.t("Error while fetching timeline events")}
-                    </Message.Header>
-                </Message>
-            )}
-            {events?.length > 0 && (
-                <Feed>
-                    {events.map((event) => (
-                        <TimelineEvent
-                            key={event.id}
-                            event={event}
-                            // necessary for query invalidation and setting state of the request events query
-                            requestId={request.id}
-                            page={page}
-                        />
-                    ))}
-                </Feed>
-            )}
-            {data?.hits.total > timelinePageSize && (
-                <div className="centered rel-mb-1">
-                    <Pagination
-                        size="mini"
-                        activePage={page}
-                        totalPages={totalPages}
-                        onPageChange={(_, { activePage }) => handlePageChange(activePage)}
-                        ellipsisItem={null}
-                        firstItem={null}
-                        lastItem={null}
-                    />
-                </div>
-            )}
-        </Dimmer.Dimmable>
-    );
+    // const events: RequestEventMetadata[] | undefined = data?.hits.hits;
+    // const totalPages = Math.ceil(data?.hits?.total / timelinePageSize);
+    // return (
+    //     <Dimmer.Dimmable blurring dimmed={isLoading}>
+    //         <Dimmer active={isLoading} inverted>
+    //             <Loader indeterminate size="big">
+    //                 {t("Loading timeline...")}
+    //             </Loader>
+    //         </Dimmer>
+    //         <div className="rel-mb-5">
+    //             <CommentSubmitForm commentSubmitMutation={commentSubmitMutation} />
+    //         </div>
+    //         {error && (
+    //             <Message negative>
+    //                 <Message.Header>
+    //                     {i18next.t("Error while fetching timeline events")}
+    //                 </Message.Header>
+    //             </Message>
+    //         )}
+    //         {events?.length > 0 && (
+    //             <Feed>
+    //                 {events.map((event) => (
+    //                     <TimelineEvent
+    //                         key={event.id}
+    //                         event={event}
+    //                         // necessary for query invalidation and setting state of the request events query
+    //                         requestId={request.id}
+    //                         page={page}
+    //                     />
+    //                 ))}
+    //             </Feed>
+    //         )}
+    //         {data?.hits.total > timelinePageSize && (
+    //             <div className="centered rel-mb-1">
+    //                 <Pagination
+    //                     size="mini"
+    //                     activePage={page}
+    //                     totalPages={totalPages}
+    //                     onPageChange={(_, { activePage }) => handlePageChange(activePage)}
+    //                     ellipsisItem={null}
+    //                     firstItem={null}
+    //                     lastItem={null}
+    //                 />
+    //             </div>
+    //         )}
+    //     </Dimmer.Dimmable>
+    // );
+    return <></>
 };
 
 export const EventsTimeline = translated(EventsTimelineFn);

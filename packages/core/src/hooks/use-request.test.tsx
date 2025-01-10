@@ -4,7 +4,6 @@ import { useRequestTimeline } from "./use-request";
 import type { ComponentProps, RequestRecordMetadata, RequestTimelineResponse } from "../types";
 
 import { apiClient } from '../client'; // Mocked API client
-import { withSupressedConsoleErrors } from "../tests";
 
 jest.mock("../client");
 
@@ -20,6 +19,9 @@ const wrapper: React.FC<ComponentProps<{}>> = ({ children }) => {
 
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 };
+
+
+
 
 describe("useRequestTimeline", () => {
   const mockRequest: RequestRecordMetadata = {
@@ -152,27 +154,22 @@ describe("useRequestTimeline", () => {
     const errorMessage = "Failed to fetch timeline data";
     (apiClient.get as jest.Mock).mockRejectedValue(new Error(errorMessage));
 
-    let result, waitForNextUpdate = undefined
+    // Render the hook
+    const { result, waitForNextUpdate } = renderHook(
+      () => useRequestTimeline({
+        request: mockRequest,
+      }),
+      { wrapper }
+    );
 
-    withSupressedConsoleErrors(async () => {
-      // Render the hook
-      const { result, waitForNextUpdate } = renderHook(
-        () => useRequestTimeline({
-          request: mockRequest,
-        }),
-        { wrapper }
-      );
+    await waitForNextUpdate()
 
-      await waitForNextUpdate()
-      waitFor(() => expect(apiClient.get as jest.Mock).toHaveBeenCalled());
+    expect(result.current.error as Error).toBeDefined();
 
-      expect(result.current.error as Error).toBeDefined();
-
-      const returnedError = result.current.error! as Error
-      expect(returnedError.message).toBe(errorMessage);
-      expect(result.current.timelineData).toBeUndefined();
-      expect(result.current.isLoading).toBe(false);
-    })
+    const returnedError = result.current.error! as Error
+    expect(returnedError.message).toBe(errorMessage);
+    expect(result.current.timelineData).toBeUndefined();
+    expect(result.current.isLoading).toBe(false);
   });
 
   it("changes page and fetches new data", async () => {
@@ -237,20 +234,19 @@ describe("useRequestTimeline", () => {
   });
 
   it("respects refetchOnWindowFocus and refetchInterval options", async () => {
-    const { refetch } = useRequestTimeline({
-      request: mockRequest,
-      refetchOnWindowFocus: true,
-      refetchInterval: 600,
-    })
+    const { result } = renderHook(
+      () => useRequestTimeline({
+        request: mockRequest,
+        refetchOnWindowFocus: true,
+        refetchInterval: 60,
+      }),
+      { wrapper }
+    )
 
-    expect(refetch).toBeDefined();
+    expect(result.current.refetch).toBeDefined();
 
-    await new Promise((r) => setTimeout(r, 800));
+    await new Promise((r) => setTimeout(r, 70));
 
     expect(apiClient.get).toHaveBeenCalledTimes(2);
   });
 });
-
-function waitFor (arg0: () => void) {
-  throw new Error("Function not implemented.");
-}

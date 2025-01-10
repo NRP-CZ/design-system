@@ -7,8 +7,8 @@
     "dev": "tsup --watch",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "test": "npx jest --coverage",
-    "test:watch": "npx jest --watch"
+    "test": "npx jest --coverage --silent",
+    "test:watch": "npx jest --silent --watch"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

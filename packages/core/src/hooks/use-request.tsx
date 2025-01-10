@@ -1,56 +1,54 @@
 import * as React from "react";
-import { useMutation, useQueryClient, useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery, type UseQueryOptions, type QueryKey } from "@tanstack/react-query";
 import { apiClient } from "../client";
 
-import type { RequestRecordMetadata, RequestTimelineResponse } from "../types";
-import type { AxiosError, AxiosResponse } from "axios";
+import type { RequestEventMetadata, RequestRecordMetadata, RequestTimelineResponse } from "../types";
 
-// export function useRequestComments (
-//   request: RequestRecordMetadata,
-//   page: number = 1
-// ) {
-//   const queryClient = useQueryClient();
-//   const { refetch: refetchTimelineData, pageSize: timelinePageSize } =
-//     useRequestTimeline({ request });
+export function useRequestComments (
+  request: RequestRecordMetadata,
+  page: number = 1
+) {
+  const queryClient = useQueryClient();
+  const { refetch: refetchTimelineData, pageSize: timelinePageSize, requestEventsQuery } =
+    useRequestTimeline({ request });
 
-//   const submit = React.useCallback(
-//     () =>
-//       useMutation({
-//         mutationFn: (values) =>
-//           apiClient.post(request.links?.comments + "?expand=1", values),
-//         onSuccess: (response) => {
-//           if (response.status === 201) {
-//             queryClient.setQueryData(
-//               ["requestEvents", request.id, page],
-//               (oldData: RequestTimelineResponse) => {
-//                 if (!oldData) return;
-//                 // a bit ugly, but it is a limitation of react query when data you recieve is nested
-//                 const newHits = [...oldData.hits.hits];
-//                 if (oldData.hits.total + 1 > timelinePageSize) {
-//                   newHits.pop();
-//                 }
-//                 return {
-//                   ...oldData,
-//                   data: {
-//                     ...oldData,
-//                     hits: {
-//                       ...oldData.hits,
-//                       total: oldData.hits.total + 1,
-//                       hits: [response.data, ...newHits],
-//                     },
-//                   },
-//                 };
-//               }
-//             );
-//           }
-//           setTimeout(() => refetchTimelineData(), 1000);
-//         },
-//       }),
-//     [request, page]
-//   );
+  const updatedComments = (currentComments: RequestTimelineResponse | undefined) => {
+    if (!currentComments) return;
+    // a bit ugly, but it is a limitation of react query when data you recieve is nested
+    const newComments = [...currentComments.hits.hits];
+    if (currentComments.hits.total + 1 > timelinePageSize) {
+      newComments.pop();
+    }
+    return {
+      ...currentComments,
+      hits: {
+        ...currentComments.hits,
+        total: currentComments.hits.total + 1,
+        hits: [...currentComments.hits.hits, ...newComments],
+      },
+    };
+  }
 
-//   return { submit };
-// }
+  async function submitCommentFn (comment: RequestEventMetadata) {
+    return apiClient.post(request.links?.comments + "?expand=1", comment)
+  }
+
+  const submit = React.useCallback(
+    () =>
+      useMutation({
+        mutationFn: submitCommentFn,
+        onSuccess: (response) => {
+          if (response.status === 201) {
+            queryClient.setQueryData(requestEventsQuery, updatedComments);
+          }
+          setTimeout(() => refetchTimelineData(), 1000);
+        },
+      }),
+    [request, page]
+  );
+
+  return { submit };
+}
 
 export type UseRequestTimelineProps = {
   request: RequestRecordMetadata;
@@ -59,23 +57,16 @@ export type UseRequestTimelineProps = {
   refetchInterval?: number;
 };
 
-export interface UseRequestTimelineReturn {
-  timelineData: RequestTimelineResponse | undefined;
-  error: Error | null;
-  isLoading: boolean;
-  refetch: () => void;
-  currentPage: number;
-  changePage: (newPage: number) => void;
-  pageSize: number;
-}
 
 export function useRequestTimeline ({
   request,
   pageSize = 25,
   refetchOnWindowFocus = false,
   refetchInterval = 10000,
-}: UseRequestTimelineProps): UseRequestTimelineReturn {
+}: UseRequestTimelineProps) {
   const [page, setPage] = React.useState(1);
+
+  const requestEventsQuery: QueryKey = ["requestEvents", request.id, page]
 
   async function fetchTimelineData (): Promise<RequestTimelineResponse> {
     return apiClient.get(
@@ -90,7 +81,7 @@ export function useRequestTimeline ({
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["requestEvents", request.id, page],
+    queryKey: requestEventsQuery,
     queryFn: fetchTimelineData,
     // select: (data) => data.data,
     enabled: !!request.links?.timeline,
@@ -117,6 +108,7 @@ export function useRequestTimeline ({
     currentPage: page,
     changePage,
     pageSize,
+    requestEventsQuery
   };
 }
 

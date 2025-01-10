@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useTranslation, fallbackLng } from "@nrp-cz/internationalization";
 import type { MultilingualValue } from "@nrp-cz/internationalization";
 
