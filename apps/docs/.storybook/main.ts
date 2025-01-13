@@ -1,4 +1,4 @@
-import type { StorybookConfig } from "@storybook/react-webpack5";
+import type { StorybookConfig } from "@storybook/react-vite";
 
 import { join, dirname, resolve } from "path";
 
@@ -14,23 +14,31 @@ const config: StorybookConfig = {
     "../../../packages/components-sui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
   addons: [
-    getAbsolutePath("@storybook/addon-webpack5-compiler-swc"),
     getAbsolutePath("@storybook/addon-essentials"),
+    getAbsolutePath("storybook-react-i18next"),
     getAbsolutePath("@chromatic-com/storybook"),
     getAbsolutePath("@storybook/addon-interactions"),
     getAbsolutePath("@storybook/addon-coverage"),
-    getAbsolutePath("storybook-react-i18next"),
   ],
   framework: {
-    name: getAbsolutePath("@storybook/react-webpack5"),
+    name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
-  webpackFinal: async (config) => {
-    config.resolve!.alias = {
-      ...config.resolve!.alias,
-      react: resolve("./node_modules/react"),
-      "react-dom": resolve("./node_modules/react-dom"),
-    };
+  viteFinal: async (config) => {
+    if (!config.build) {
+      config.build = {};
+    }
+    config.build.target = [
+      "es2022",
+      "edge89",
+      "firefox89",
+      "chrome89",
+      "safari15",
+    ];
+    config.resolve.modules = [
+      ...(config.resolve.modules || []),
+      resolve(__dirname, "../../../packages/components-sui/src"),
+    ];
     return config;
   },
   build: {

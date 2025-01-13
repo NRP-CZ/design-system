@@ -36,6 +36,7 @@ export const CurrentLocale = {
   },
 } satisfies Story;
 
+
 /**
  * Uses value matching the i18next `fallbackLng` option
  */
