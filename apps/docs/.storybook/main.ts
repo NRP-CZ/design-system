@@ -24,6 +24,7 @@ const config: StorybookConfig = {
     name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
+  staticDirs: ["../public", "../storybook-static"],
   viteFinal: async (config) => {
     if (!config.build) {
       config.build = {};
@@ -35,8 +36,8 @@ const config: StorybookConfig = {
       "chrome89",
       "safari15",
     ];
-    config.resolve.modules = [
-      ...(config.resolve.modules || []),
+    config!.resolve!.modules = [
+      ...(config!.resolve!.modules || []),
       resolve(__dirname, "../../../packages/components-sui/src"),
     ];
     return config;

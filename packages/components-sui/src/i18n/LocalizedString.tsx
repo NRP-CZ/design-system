@@ -2,11 +2,10 @@ import * as React from 'react'
 import { type ComponentProps, useLocalizedValue } from "@repo/core";
 import type { MultilingualValue } from '@nrp-cz/internationalization';
 
-
 export type LocalizedStringProps<T extends React.ElementType = 'span'> = ComponentProps<{
     as?: T;
     value: MultilingualValue;
-}>
+}>;
 
 /**
  * A simple element that tries to display the string-based value in user's current locale.
@@ -17,8 +16,9 @@ export type LocalizedStringProps<T extends React.ElementType = 'span'> = Compone
  *
  */
 export function LocalizedString<T extends React.ElementType = 'span'> (props: LocalizedStringProps<T>): JSX.Element {
-    const { as: Component = 'span', value, ...rest } = props
-    const localizedValue = useLocalizedValue(value)
+    const { as: Component = 'span', value, ...rest } = props;
+    const localizedValue = useLocalizedValue(value);
 
-    return <Component {...rest}>{localizedValue}</Component>;
-};
+    // We infer the correct type for 'rest' to match the props for the given component (T).
+    return <Component {...rest as React.ComponentProps<T>}>{localizedValue}</Component>;
+}

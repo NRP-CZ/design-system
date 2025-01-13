@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useRequestTimeline } from "./use-request";
+import { useRequestTimeline } from "./use-request-timeline";
 import type { ComponentProps, RequestRecordMetadata, RequestTimelineResponse } from "../types";
 
 import { apiClient } from '../client'; // Mocked API client
@@ -20,14 +20,12 @@ const wrapper: React.FC<ComponentProps<{}>> = ({ children }) => {
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 };
 
-
-
-
 describe("useRequestTimeline", () => {
   const mockRequest: RequestRecordMetadata = {
     id: "test-request-id",
     links: {
       timeline: "https://example.com/timeline",
+      comments: ""
     },
   };
 
@@ -132,7 +130,7 @@ describe("useRequestTimeline", () => {
         useRequestTimeline({
           request: {
             id: "123",
-            links: { timeline: "https://example.com/timeline" },
+            links: { timeline: "https://example.com/timeline", comments: "" },
           },
           pageSize: 2
         }),

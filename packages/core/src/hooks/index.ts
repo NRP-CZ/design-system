@@ -1,5 +1,6 @@
 export { useButton } from "./use-button";
-export { useRequest, useRequestTimeline } from "./use-request";
+export { useRequestTimeline } from "./use-request-timeline";
+export { useRequestComments } from "./use-request-comments";
 export { useLocalizedValue } from "./use-localized-value";
 
 export type { UseButtonProps } from "./use-button";

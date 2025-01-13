@@ -25,16 +25,16 @@ export interface RequestRecordMetadata {
   /**
    * Links object containing various endpoints related to the request.
    */
-  links?: {
+  links: {
     /**
      * URL for fetching the timeline events associated with the request.
      */
-    timeline?: string;
+    timeline: string;
 
     /**
      * URL for posting comments on the request.
      */
-    comments?: string;
+    comments: string;
 
     /**
      * Other optional links related to the request.

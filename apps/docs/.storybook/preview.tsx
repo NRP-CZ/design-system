@@ -1,29 +1,19 @@
 import * as React from 'react'
 import "semantic-ui-css/semantic.min.css";
-import { initializeI18next, I18nextProvider, languages } from "@nrp-cz/internationalization"
+import { initializeI18next, languages } from "@nrp-cz/internationalization"
+import { initialize, mswLoader } from 'msw-storybook-addon';
+
 import type { Preview } from '@storybook/react'
+
 
 const i18n = await initializeI18next()
 
-
-// const withI18next = (Story: any, context: any) => {
-//   const { locale } = context.globals;
-//   // When the locale global changes
-//   // Set the new locale in i18n
-//   React.useEffect(() => {
-//     i18n.changeLanguage(locale);
-//   }, [locale]);
-
-//   return (
-//     <React.Suspense fallback={<div>loading translations...</div>}>
-//       <I18nextProvider i18n={i18n}>
-//         <Story />
-//       </I18nextProvider>
-//     </React.Suspense>
-//   );
-// };
-
-// export const decorators = [withI18next]
+/*
+ * Initializes MSW
+ * See https://github.com/mswjs/msw-storybook-addon#configuring-msw
+ * to learn how to customize it
+ */
+initialize();
 
 /** @type { import('@storybook/react').Preview } */
 const preview: Preview = {
@@ -40,9 +30,9 @@ const preview: Preview = {
       toc: true, // 👈 Enables the table of contents
     },
   },
+  loaders: [mswLoader], // 👈 Add the MSW loader to all stories
   tags: ['autodocs'],
 };
 
 export default preview;
-console.log(preview.initialGlobals!.locales)
 

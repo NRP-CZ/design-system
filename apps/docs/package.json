@@ -37,10 +37,17 @@
     "@types/node": "^22.10.5",
     "concurrently": "^9.1.2",
     "http-server": "14.1.1",
+    "msw": "^2.7.0",
+    "msw-storybook-addon": "^2.0.4",
     "prop-types": "^15.8.1",
     "react-docgen": "^7.1.0",
     "react-docgen-typescript": "^2.2.2",
     "storybook": "^8.4.7",
     "wait-on": "^8.0.1"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
