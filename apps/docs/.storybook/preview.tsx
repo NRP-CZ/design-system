@@ -4,20 +4,8 @@ import { initializeI18next, I18nextProvider, languages } from "@nrp-cz/internati
 
 const i18n = await initializeI18next()
 
-export const globalTypes = {
-  locale: {
-    name: 'Locale',
-    description: 'Internationalization locale',
-    toolbar: {
-      icon: 'globe',
-      items: languages.map(code => ({ value: code, title: code.toUpperCase() })),
-      showName: true,
-    },
-  },
-};
 
-
-const withI18next = (Story, context) => {
+const withI18next = (Story: any, context: any) => {
   const { locale } = context.globals;
 
   // When the locale global changes
@@ -40,6 +28,10 @@ export const decorators = [withI18next];
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {
+  initialGlobals: {
+    locale: 'en',
+    locales: languages.map(code => ({ value: code, title: code.toUpperCase() })),
+  },
   parameters: {
     i18n,
     actions: { argTypesRegex: "^on.*" },

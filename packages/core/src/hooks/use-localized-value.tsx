@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useTranslation, fallbackLng } from "@nrp-cz/internationalization";
 import type { MultilingualValue } from "@nrp-cz/internationalization";
 
@@ -10,7 +9,7 @@ export type UseLocalizedValueProps = MultilingualValue;
  * - If still no match, returns the first entry found
  * - Finally if it can't find anything, it returns undefined
  */
-export function useLocalizedValue(
+export function useLocalizedValue (
   value: UseLocalizedValueProps
 ): string | undefined {
   const { i18n } = useTranslation();
@@ -18,7 +17,7 @@ export function useLocalizedValue(
   const currentLanguageValue = value[i18n.language];
   const fallbackLanguage = i18n.options?.fallbackLng ?? fallbackLng;
 
-  function findfallbackLngValue() {
+  function findfallbackLngValue () {
     if (typeof fallbackLanguage === "string") {
       return value[fallbackLanguage];
     } else if (Array.isArray(fallbackLanguage)) {

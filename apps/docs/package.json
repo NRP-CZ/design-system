@@ -17,7 +17,8 @@
     "@types/react-dom": "^16.9.9",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "semantic-ui-css": "^2.4.1"
+    "semantic-ui-css": "^2.4.1",
+    "storybook-react-i18next": "^3.1.8"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.3",
@@ -28,9 +29,10 @@
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
     "@storybook/addon-onboarding": "^8.4.7",
+    "@storybook/addon-webpack5-compiler-swc": "^2.0.0",
     "@storybook/blocks": "^8.4.7",
     "@storybook/react": "^8.4.7",
-    "@storybook/react-vite": "^8.4.7",
+    "@storybook/react-webpack5": "^8.4.7",
     "@storybook/test": "^8.4.7",
     "@storybook/test-runner": "^0.21.0",
     "@types/node": "^22.10.5",
@@ -40,6 +42,7 @@
     "react-docgen": "^7.1.0",
     "react-docgen-typescript": "^2.2.2",
     "storybook": "^8.4.7",
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
     "wait-on": "^8.0.1"
   }
 }

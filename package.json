@@ -20,6 +20,10 @@
     "tsup": "^8.0.2",
     "typescript": "5.5.4"
   },
+  "resolutions": {
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
+  },
   "packageManager": "pnpm@8.15.6",
   "name": "@nrp-cz/design-system"
 }

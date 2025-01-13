@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { type ComponentProps, useLocalizedValue } from '@repo/core';
+import * as React from 'react'
+import { type ComponentProps, useLocalizedValue } from "@repo/core";
 import type { MultilingualValue } from '@nrp-cz/internationalization';
 
 
@@ -17,10 +17,8 @@ export type LocalizedStringProps<T extends React.ElementType = 'span'> = Compone
  *
  */
 export function LocalizedString<T extends React.ElementType = 'span'> (props: LocalizedStringProps<T>): JSX.Element {
-    const { as, value } = props
+    const { as: Component = 'span', value, ...rest } = props
     const localizedValue = useLocalizedValue(value)
 
-    const Component = as || 'span';
-
-    return <Component>{localizedValue}</Component>;
+    return <Component {...rest}>{localizedValue}</Component>;
 };
