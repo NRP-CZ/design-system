@@ -54,7 +54,7 @@ const mockTimelineCommentEvent: (index: number) => RequestEventResponseMetadata 
   const id = crypto.randomUUID()
 
   return {
-    "id": "a",
+    "id": id,
     "created": "2025-01-09T09:23:26.006595+00:00",
     "updated": "2025-01-09T09:23:26.009686+00:00",
     "links": {
@@ -188,6 +188,26 @@ export const Paginated: Story = {
 
           await delay(800);
           return HttpResponse.json(mockTimelineResponse(10, page === 1 ? pageSize : 10 - pageSize));
+        }),
+      ],
+    },
+  },
+} satisfies Story
+
+/**
+ * There are no events on a request
+ */
+export const NoData: Story = {
+  ...EventsTimelineTemplate,
+  args: {
+    request: mockRequest,
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(mockRequest.links.timeline, async ({ request }) => {
+          await delay(800);
+          return HttpResponse.json(mockTimelineResponse(0, 0));
         }),
       ],
     },
